@@ -1706,19 +1706,22 @@ final class DualPivotQuicksort {
          * Place values on their final positions.
          */
         if (high - low > NUM_BYTE_VALUES) {
-            for (int k = high, i = MAX_BYTE_INDEX; --i > Byte.MAX_VALUE; ) {
-                int value = i & 0xFF;
-                for (low = k - count[value]; k > low; a[--k] = (byte) value);
+            for (int i = MAX_BYTE_INDEX; high > low; ) {
+                int value = --i & 0xFF;
+
+                for (int lo = high - count[value]; high > lo;
+                    a[--high] = (byte) value
+                );
             }
         } else {
-            for (int k = high, i = MAX_BYTE_INDEX; k > low; ) {
+            for (int i = MAX_BYTE_INDEX; high > low; ) {
                 while (count[--i & 0xFF] == 0);
 
                 int value = i & 0xFF;
                 int c = count[value];
 
                 do {
-                    a[--k] = (byte) value;
+                    a[--high] = (byte) value;
                 } while (--c > 0);
             }
         }
@@ -2026,16 +2029,18 @@ final class DualPivotQuicksort {
          * Place values on their final positions.
          */
         if (high - low > NUM_CHAR_VALUES) {
-            for (int k = high, i = NUM_CHAR_VALUES; --i >= 0; ) {
-                for (low = k - count[i]; k > low; a[--k] = (char) i);
+            for (int i = NUM_CHAR_VALUES; high > low; ) {
+                for (int lo = high - count[--i]; high > lo;
+                    a[--high] = (char) i
+                );
             }
         } else {
-            for (int k = high, i = NUM_CHAR_VALUES; k > low; ) {
+            for (int i = NUM_CHAR_VALUES; high > low; ) {
                 while (count[--i] == 0);
                 int c = count[i];
 
                 do {
-                    a[--k] = (char) i;
+                    a[--high] = (char) i;
                 } while (--c > 0);
             }
         }
@@ -2348,19 +2353,22 @@ final class DualPivotQuicksort {
          * Place values on their final positions.
          */
         if (high - low > NUM_SHORT_VALUES) {
-            for (int k = high, i = MAX_SHORT_INDEX; --i > Short.MAX_VALUE; ) {
-                int value = i & 0xFFFF;
-                for (low = k - count[value]; k > low; a[--k] = (short) value);
+            for (int i = MAX_SHORT_INDEX; high > low; ) {
+                int value = --i & 0xFFFF;
+
+                for (int lo = high - count[value]; high > lo;
+                    a[--high] = (short) value
+                );
             }
         } else {
-            for (int k = high, i = MAX_SHORT_INDEX; k > low; ) {
+            for (int i = MAX_SHORT_INDEX; high > low; ) {
                 while (count[--i & 0xFFFF] == 0);
 
                 int value = i & 0xFFFF;
                 int c = count[value];
 
                 do {
-                    a[--k] = (short) value;
+                    a[--high] = (short) value;
                 } while (--c > 0);
             }
         }
