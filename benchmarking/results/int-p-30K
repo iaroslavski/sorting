@@ -1,0 +1,17 @@
+# Data type = int, Sorting type = parallel 8, Length = 30000
+test_name;jdk_time;dpqs_time;gain
+
+random;1044.30;943.10;0.10
+equal;104.30;12.00;0.88
+ascending;105.30;20.00;0.81
+descending;105.70;39.90;0.62
+period[4];155.00;94.20;0.39
+period[5];223.40;106.40;0.52
+period[6];181.60;137.50;0.24
+stagger[15];199.90;193.10;0.03
+stagger[24];270.50;258.10;0.05
+stagger[33];275.20;294.10;-0.07
+shuffle[6];490.90;495.20;-0.01
+shuffle[7];494.40;442.60;0.10
+shuffle[8];472.50;463.90;0.02
+TOTAL;4123.00;3500.10;0.15

@@ -1,0 +1,56 @@
+[int]
+sequential, Length = 150, Gain: 0.15
+sequential, Length = 30000, Gain: 0.28
+sequential, Length = 1000000, Gain: 0.31
+parallel 8, Length = 150, Gain: 0.14
+parallel 8, Length = 30000, Gain: 0.15
+parallel 8, Length = 1000000, Gain: 0.14
+
+[long]
+sequential, Length = 150, Gain: 0.12
+sequential, Length = 30000, Gain: 0.23
+sequential, Length = 1000000, Gain: 0.32
+parallel 8, Length = 150, Gain: 0.11
+parallel 8, Length = 30000, Gain: 0.16
+parallel 8, Length = 1000000, Gain: 0.24
+parallel 88 processors, Length = 1000000, Gain: 0.05
+
+[byte]
+sequential, Length = 150, Gain: 0.06
+sequential, Length = 30000, Gain: 0.36
+sequential, Length = 1000000, Gain: 0.37
+parallel 8, Length = 150, Gain: 0.13
+parallel 8, Length = 30000, Gain: 0.73
+parallel 8, Length = 1000000, Gain: 0.65
+
+[char]
+sequential, Length = 150, Gain: 0.10
+sequential, Length = 30000, Gain: 0.00
+sequential, Length = 1000000, Gain: 0.17
+parallel 8, Length = 150, Gain: 0.10
+parallel 8, Length = 30000, Gain: 0.33
+parallel 8, Length = 1000000, Gain: 0.62
+
+[short]
+sequential, Length = 150, Gain: 0.14
+sequential, Length = 30000, Gain: 0.10
+sequential, Length = 1000000, Gain: 0.18
+parallel 8, Length = 150, Gain: 0.13
+parallel 8, Length = 30000, Gain: 0.41
+parallel 8, Length = 1000000, Gain: 0.65
+
+[float]
+sequential, Length = 150, Gain: -0.02
+sequential, Length = 30000, Gain: 0.21
+sequential, Length = 1000000, Gain: 0.24
+parallel 8, Length = 150, Gain: -0.05
+parallel 8, Length = 30000, Gain: -0.04
+parallel 8, Length = 1000000, Gain: -0.12
+
+[double]
+sequential, Length = 150, Gain: -0.03
+sequential, Length = 30000, Gain: 0.19
+sequential, Length = 1000000, Gain: 0.23
+parallel 8, Length = 150, Gain: -0.05
+parallel 8, Length = 30000, Gain: 0.05
+parallel 8, Length = 1000000, Gain: 0.15
