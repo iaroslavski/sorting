@@ -1,0 +1,17 @@
+# Data type = long, Sorting type = sequential, Length = 150
+test_name;jdk_time;dpqs_time;gain
+
+random;1280.00;1389.00;-0.09
+equal;125.00;56.00;0.55
+ascending;345.00;74.00;0.79
+descending;891.00;136.00;0.85
+period[4];358.00;512.00;-0.43
+period[5];463.00;693.00;-0.50
+period[6];452.00;643.00;-0.42
+stagger[15];1244.00;1610.00;-0.29
+stagger[24];452.00;645.00;-0.43
+stagger[33];1396.00;1307.00;0.06
+shuffle[6];1109.00;856.00;0.23
+shuffle[7];887.00;807.00;0.09
+shuffle[8];927.00;701.00;0.24
+TOTAL;9929.00;9429.00;0.05
