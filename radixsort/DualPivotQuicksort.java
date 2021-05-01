@@ -49,7 +49,7 @@ import java.util.concurrent.RecursiveTask;
  *
  * @since 1.7 * 14
  */
-final class DualPivotQuicksort_6K_5d2 {
+final class DualPivotQuicksort {
 
     /**
      * Prevents instantiation.
@@ -597,14 +597,14 @@ final class DualPivotQuicksort_6K_5d2 {
             count3[(a[i] >>> 16) & 0xFF]--;
             count4[(a[i] >>> 24) ^ 0x80]--;
         }
-        boolean passLevel1 = passLevel(count1, low - high, high);
-        boolean passLevel2 = passLevel(count2, low - high, high);
-        boolean passLevel3 = passLevel(count3, low - high, high);
         boolean passLevel4 = passLevel(count4, low - high, high);
+        boolean passLevel3 = passLevel(count3, low - high, high);
+        boolean passLevel2 = passLevel(count2, low - high, high);
+        boolean passLevel1 = passLevel(count1, low - high, high);
 
-        if (!passLevel1 && !passLevel2 && !passLevel3 && !passLevel4) {
-            return;
-        }
+//      if (!passLevel1 && !passLevel2 && !passLevel3 && !passLevel4) {
+//          return;
+//      }
         int[] b; int offset = low;
 
         if (sorter == null || (b = (int[]) sorter.b) == null) {
