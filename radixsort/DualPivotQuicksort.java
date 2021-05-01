@@ -586,6 +586,17 @@ final class DualPivotQuicksort {
     // TODO add javadoc
 //  private 
     static void radixSort(Sorter sorter, int[] a, int low, int high) {
+        int[] b; int offset = low;
+
+        if (sorter == null || (b = (int[]) sorter.b) == null) {
+            b = new int[high - low];
+        } else {
+            offset = sorter.offset;
+        }
+
+        int start = low - offset;
+        int last = high - offset;
+
         int[] count1 = new int[256];
         int[] count2 = new int[256];
         int[] count3 = new int[256];
@@ -602,19 +613,6 @@ final class DualPivotQuicksort {
         boolean passLevel2 = passLevel(count2, low - high, high);
         boolean passLevel1 = passLevel(count1, low - high, high);
 
-//      if (!passLevel1 && !passLevel2 && !passLevel3 && !passLevel4) {
-//          return;
-//      }
-        int[] b; int offset = low;
-
-        if (sorter == null || (b = (int[]) sorter.b) == null) {
-            b = new int[high - low];
-        } else {
-            offset = sorter.offset;
-        }
-        int start = low - offset;
-        int last = high - offset;
-        
         // 1 todo process LSD
         if (passLevel1) {
             for (int i = low; i < high; ++i) {
