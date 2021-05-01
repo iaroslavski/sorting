@@ -49,7 +49,7 @@ import java.util.concurrent.RecursiveTask;
  *
  * @since 1.7 * 14
  */
-final class DualPivotQuicksort_Z1 {
+final class DualPivotQuicksort_6K_4 {
 
     /**
      * Prevents instantiation.
@@ -115,6 +115,8 @@ final class DualPivotQuicksort_Z1 {
      * Threshold of mixed insertion sort is incremented by this value.
      */
     private static final int DELTA = 3 << 1;
+    private static final int DELTA4 = DELTA << 2; // TODO
+    private static final int RADIX_MIN_SIZE = 6 << 10;
 
     /**
      * Max recursive partitioning depth before using heap sort.
@@ -273,6 +275,12 @@ final class DualPivotQuicksort_Z1 {
              * Partitioning with 2 pivots in case of different elements.
              */
             if (a[e1] < a[e2] && a[e2] < a[e3] && a[e3] < a[e4] && a[e4] < a[e5]) {
+
+                // TODD add comment
+                if ((bits > DELTA4 || sorter == null) && size > RADIX_MIN_SIZE) {
+                    radixSort(sorter, a, low, high);
+                    return;
+                }
 
                 /*
                  * Use the first and fifth of the five sorted elements as
@@ -575,6 +583,113 @@ final class DualPivotQuicksort_Z1 {
         }
     }
 
+    // TODO add javadoc
+//  private 
+    static void radixSort(Sorter sorter, int[] a, int low, int high) {
+//System.out.println("                        Radix !!!");
+        int[] count1 = new int[256];
+        int[] count2 = new int[256];
+        int[] count3 = new int[256];
+        int[] count4 = new int[256];
+
+        for (int i = low; i < high; ++i) {
+            count1[ a[i]         & 0xFF ]--;
+            count2[(a[i] >>>  8) & 0xFF ]--;
+            count3[(a[i] >>> 16) & 0xFF ]--;
+            count4[(a[i] >>> 24) ^ 0x80 ]--;
+        }
+        boolean skipByte4 = skipByte(count4, low - high, high, true);
+        boolean skipByte3 = skipByte(count3, low - high, high, skipByte4);
+        boolean skipByte2 = skipByte(count2, low - high, high, skipByte3);
+        boolean skipByte1 = skipByte(count1, low - high, high, skipByte2);
+
+        if (skipByte1) {
+//Main.check(a, low, high - 1); // todo
+            return;
+        }
+//        int xorA = Main.getXor(a, low, high);
+
+        int[] b; int offset = low;
+
+        if (sorter == null || (b = (int[]) sorter.b) == null) {
+            b = new int[high - low];
+        } else {
+            offset = sorter.offset;
+//System.out.println("      !!!! offset: " + offset);
+        }
+        int start = low - offset;
+        int last = high - offset;
+
+
+        // 1 todo process LSD
+        for (int i = low; i < high; ++i) {
+            b[count1[a[i] & 0xFF]++ - offset] = a[i];
+        }
+
+//        if (xorA != Main.getXor(a, low, high)) System.out.println("6K_4 1 xor changed");
+
+        if (skipByte2) {
+            System.arraycopy(b, start, a, low, high - low);
+//Main.check(a, low, high - 1); // todo
+            return;
+        }
+
+        // 2
+        for (int i = start; i < last; ++i) {
+            a[count2[(b[i] >> 8) & 0xFF]++] = b[i];
+        }
+
+//        if (xorA != Main.getXor(a, low, high)) System.out.println("6K_4 2 xor changed");
+
+        if (skipByte3) {
+//Main.check(a, low, high - 1); // todo
+            return;
+        }
+
+        // 3
+        for (int i = low; i < high; ++i) {
+            b[count3[(a[i] >> 16) & 0xFF]++ - offset] = a[i];
+        }
+
+//        if (xorA != Main.getXor(a, low, high)) System.out.println("6K_4 3 xor changed");
+
+        if (skipByte4) {
+            System.arraycopy(b, start, a, low, high - low);
+//Main.check(a, low, high - 1); // todo
+            return;
+        }
+
+//        if (xorA != Main.getXor(a, low, high)) System.out.println("6K_4 4 xor changed");
+        // 4
+        for (int i = start; i < last; ++i) {
+            a[count4[(b[i] >>> 24) ^ 0x80]++] = b[i];
+        }
+//        if (xorA != Main.getXor(a, low, high)) System.out.println("6K_4 5 xor changed");
+//Main.check(a, low, high - 1); // todo
+    }
+
+    // TODO: add javadoc
+    private static boolean skipByte(int[] count, int total, int high, boolean prevSkip) {
+        if (prevSkip) {
+            for (int c : count) {
+                if (c == 0) {
+                    continue;
+                }
+                if (c == total) {
+                    return true;
+                }
+                break;
+            }
+        }
+        // todo create historgam
+        count[255] += high;
+
+        for (int i = 255; i > 0; --i) {
+            count[i - 1] += count[i];
+        }
+        return false;
+    }
+
     /**
      * Sorts the specified range of the array using heap sort.
      *
@@ -674,6 +789,7 @@ final class DualPivotQuicksort_Z1 {
              */
             if (run == null) {
                 if (k == high) {
+
                     /*
                      * The array is monotonous sequence,
                      * and therefore already sorted.
@@ -682,6 +798,7 @@ final class DualPivotQuicksort_Z1 {
                 }
 
                 if (k - low < MIN_FIRST_RUN_SIZE) {
+
                     /*
                      * The first run is too small
                      * to proceed with scanning.
@@ -692,9 +809,10 @@ final class DualPivotQuicksort_Z1 {
                 run = new int[((size >> 10) | 0x7F) & 0x3FF];
                 run[0] = low;
 
-            } else if (a[last - 1] > a[last]) { // Can't join with previous run
+            } else if (a[last - 1] > a[last]) {
 
                 if (count > (k - low) >> MIN_FIRST_RUNS_FACTOR) {
+
                     /*
                      * The first runs are not long
                      * enough to continue scanning.
@@ -703,6 +821,7 @@ final class DualPivotQuicksort_Z1 {
                 }
 
                 if (++count == MAX_RUN_CAPACITY) {
+
                     /*
                      * Array is not highly structured.
                      */
@@ -710,6 +829,7 @@ final class DualPivotQuicksort_Z1 {
                 }
 
                 if (count == run.length) {
+
                     /*
                      * Increase capacity of index array.
                      */
@@ -717,13 +837,6 @@ final class DualPivotQuicksort_Z1 {
                 }
             }
             run[count] = (last = k);
-
-            if (++k == high) {
-                /*
-                 * There is a single-element run at the end.
-                 */
-                --k;
-            }
         }
 
         /*
