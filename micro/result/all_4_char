@@ -1,42 +1,42 @@
-                                                                       JDK                  DPQ
+                                                                       JDK                  NEW
 
-ArraysSort.Char.testParallelSort           100    RANDOM  avgt    4   0,003 ±  0,001       0,003 ±  0,001
-ArraysSort.Char.testParallelSort           100  REPEATED  avgt    4   0,001 ±  0,001       0,001 ±  0,001
-ArraysSort.Char.testParallelSort           100   STAGGER  avgt    4   0,001 ±  0,001       0,001 ±  0,001
-ArraysSort.Char.testParallelSort           100   SHUFFLE  avgt    4   0,001 ±  0,001       0,002 ±  0,001
-ArraysSort.Char.testParallelSort          1000    RANDOM  avgt    4   0,045 ±  0,001       0,051 ±  0,001
-ArraysSort.Char.testParallelSort          1000  REPEATED  avgt    4   0,004 ±  0,001       0,005 ±  0,001
-ArraysSort.Char.testParallelSort          1000   STAGGER  avgt    4   0,014 ±  0,001       0,015 ±  0,001
-ArraysSort.Char.testParallelSort          1000   SHUFFLE  avgt    4   0,023 ±  0,001       0,026 ±  0,009
-ArraysSort.Char.testParallelSort         10000    RANDOM  avgt    4   0,186 ±  0,002       0,184 ±  0,001
-ArraysSort.Char.testParallelSort         10000  REPEATED  avgt    4   0,046 ±  0,005       0,045 ±  0,002
-ArraysSort.Char.testParallelSort         10000   STAGGER  avgt    4   0,063 ±  0,019       0,059 ±  0,001
-ArraysSort.Char.testParallelSort         10000   SHUFFLE  avgt    4   0,067 ±  0,005       0,066 ±  0,004
-ArraysSort.Char.testParallelSort        100000    RANDOM  avgt    4   0,899 ±  0,034       0,904 ±  0,042
-ArraysSort.Char.testParallelSort        100000  REPEATED  avgt    4   0,207 ±  0,001       0,158 ±  0,001
-ArraysSort.Char.testParallelSort        100000   STAGGER  avgt    4   0,236 ±  0,002       0,237 ±  0,008
-ArraysSort.Char.testParallelSort        100000   SHUFFLE  avgt    4   0,275 ±  0,006       0,277 ±  0,005
-ArraysSort.Char.testParallelSort       1000000    RANDOM  avgt    4   2,488 ±  0,208       2,482 ±  0,243
-ArraysSort.Char.testParallelSort       1000000  REPEATED  avgt    4   0,843 ±  0,198       0,843 ±  0,212
-ArraysSort.Char.testParallelSort       1000000   STAGGER  avgt    4   1,234 ±  0,181       1,238 ±  0,167
-ArraysSort.Char.testParallelSort       1000000   SHUFFLE  avgt    4   1,165 ±  0,280       1,168 ±  0,278
-ArraysSort.Char.testSort                   100    RANDOM  avgt    4   0,003 ±  0,001       0,003 ±  0,001
-ArraysSort.Char.testSort                   100  REPEATED  avgt    4   0,001 ±  0,001       0,001 ±  0,001
-ArraysSort.Char.testSort                   100   STAGGER  avgt    4   0,001 ±  0,001       0,001 ±  0,001
-ArraysSort.Char.testSort                   100   SHUFFLE  avgt    4   0,001 ±  0,001       0,002 ±  0,001
-ArraysSort.Char.testSort                  1000    RANDOM  avgt    4   0,045 ±  0,001       0,050 ±  0,002
-ArraysSort.Char.testSort                  1000  REPEATED  avgt    4   0,004 ±  0,001       0,005 ±  0,001
-ArraysSort.Char.testSort                  1000   STAGGER  avgt    4   0,014 ±  0,001       0,015 ±  0,001
-ArraysSort.Char.testSort                  1000   SHUFFLE  avgt    4   0,023 ±  0,001       0,025 ±  0,001
-ArraysSort.Char.testSort                 10000    RANDOM  avgt    4   0,186 ±  0,001       0,186 ±  0,002
-ArraysSort.Char.testSort                 10000  REPEATED  avgt    4   0,045 ±  0,002       0,045 ±  0,001
-ArraysSort.Char.testSort                 10000   STAGGER  avgt    4   0,063 ±  0,024       0,059 ±  0,001
-ArraysSort.Char.testSort                 10000   SHUFFLE  avgt    4   0,067 ±  0,005       0,067 ±  0,006
-ArraysSort.Char.testSort                100000    RANDOM  avgt    4   0,908 ±  0,072       0,898 ±  0,034
-ArraysSort.Char.testSort                100000  REPEATED  avgt    4   0,158 ±  0,001       0,158 ±  0,001
-ArraysSort.Char.testSort                100000   STAGGER  avgt    4   0,236 ±  0,002       0,236 ±  0,001
-ArraysSort.Char.testSort                100000   SHUFFLE  avgt    4   0,277 ±  0,004       0,275 ±  0,008
-ArraysSort.Char.testSort               1000000    RANDOM  avgt    4   2,486 ±  0,251       2,482 ±  0,258
-ArraysSort.Char.testSort               1000000  REPEATED  avgt    4   0,845 ±  0,184       0,846 ±  0,189
-ArraysSort.Char.testSort               1000000   STAGGER  avgt    4   1,237 ±  0,171       1,240 ±  0,160
-ArraysSort.Char.testSort               1000000   SHUFFLE  avgt    4   1,166 ±  0,244       1,163 ±  0,246
+ArraysSort.Char.testParallelSort           100    RANDOM  avgt    4   0,003 ±  0,001       0,003 ±  0,001  ms/op
+ArraysSort.Char.testParallelSort           100  REPEATED  avgt    4   0,001 ±  0,001       0,001 ±  0,001  ms/op
+ArraysSort.Char.testParallelSort           100   STAGGER  avgt    4   0,001 ±  0,001       0,001 ±  0,001  ms/op
+ArraysSort.Char.testParallelSort           100   SHUFFLE  avgt    4   0,001 ±  0,001       0,002 ±  0,001  ms/op
+ArraysSort.Char.testParallelSort          1000    RANDOM  avgt    4   0,045 ±  0,001       0,051 ±  0,001  ms/op
+ArraysSort.Char.testParallelSort          1000  REPEATED  avgt    4   0,004 ±  0,001       0,005 ±  0,001  ms/op
+ArraysSort.Char.testParallelSort          1000   STAGGER  avgt    4   0,014 ±  0,001       0,015 ±  0,001  ms/op
+ArraysSort.Char.testParallelSort          1000   SHUFFLE  avgt    4   0,023 ±  0,001       0,026 ±  0,009  ms/op
+ArraysSort.Char.testParallelSort         10000    RANDOM  avgt    4   0,186 ±  0,002       0,184 ±  0,001  ms/op
+ArraysSort.Char.testParallelSort         10000  REPEATED  avgt    4   0,046 ±  0,005       0,045 ±  0,002  ms/op
+ArraysSort.Char.testParallelSort         10000   STAGGER  avgt    4   0,063 ±  0,019       0,059 ±  0,001  ms/op
+ArraysSort.Char.testParallelSort         10000   SHUFFLE  avgt    4   0,067 ±  0,005       0,066 ±  0,004  ms/op
+ArraysSort.Char.testParallelSort        100000    RANDOM  avgt    4   0,899 ±  0,034       0,904 ±  0,042  ms/op
+ArraysSort.Char.testParallelSort        100000  REPEATED  avgt    4   0,207 ±  0,001       0,158 ±  0,001  ms/op
+ArraysSort.Char.testParallelSort        100000   STAGGER  avgt    4   0,236 ±  0,002       0,237 ±  0,008  ms/op
+ArraysSort.Char.testParallelSort        100000   SHUFFLE  avgt    4   0,275 ±  0,006       0,277 ±  0,005  ms/op
+ArraysSort.Char.testParallelSort       1000000    RANDOM  avgt    4   2,488 ±  0,208       2,482 ±  0,243  ms/op
+ArraysSort.Char.testParallelSort       1000000  REPEATED  avgt    4   0,843 ±  0,198       0,843 ±  0,212  ms/op
+ArraysSort.Char.testParallelSort       1000000   STAGGER  avgt    4   1,234 ±  0,181       1,238 ±  0,167  ms/op
+ArraysSort.Char.testParallelSort       1000000   SHUFFLE  avgt    4   1,165 ±  0,280       1,168 ±  0,278  ms/op
+ArraysSort.Char.testSort                   100    RANDOM  avgt    4   0,003 ±  0,001       0,003 ±  0,001  ms/op
+ArraysSort.Char.testSort                   100  REPEATED  avgt    4   0,001 ±  0,001       0,001 ±  0,001  ms/op
+ArraysSort.Char.testSort                   100   STAGGER  avgt    4   0,001 ±  0,001       0,001 ±  0,001  ms/op
+ArraysSort.Char.testSort                   100   SHUFFLE  avgt    4   0,001 ±  0,001       0,002 ±  0,001  ms/op
+ArraysSort.Char.testSort                  1000    RANDOM  avgt    4   0,045 ±  0,001       0,050 ±  0,002  ms/op
+ArraysSort.Char.testSort                  1000  REPEATED  avgt    4   0,004 ±  0,001       0,005 ±  0,001  ms/op
+ArraysSort.Char.testSort                  1000   STAGGER  avgt    4   0,014 ±  0,001       0,015 ±  0,001  ms/op
+ArraysSort.Char.testSort                  1000   SHUFFLE  avgt    4   0,023 ±  0,001       0,025 ±  0,001  ms/op
+ArraysSort.Char.testSort                 10000    RANDOM  avgt    4   0,186 ±  0,001       0,186 ±  0,002  ms/op
+ArraysSort.Char.testSort                 10000  REPEATED  avgt    4   0,045 ±  0,002       0,045 ±  0,001  ms/op
+ArraysSort.Char.testSort                 10000   STAGGER  avgt    4   0,063 ±  0,024       0,059 ±  0,001  ms/op
+ArraysSort.Char.testSort                 10000   SHUFFLE  avgt    4   0,067 ±  0,005       0,067 ±  0,006  ms/op
+ArraysSort.Char.testSort                100000    RANDOM  avgt    4   0,908 ±  0,072       0,898 ±  0,034  ms/op
+ArraysSort.Char.testSort                100000  REPEATED  avgt    4   0,158 ±  0,001       0,158 ±  0,001  ms/op
+ArraysSort.Char.testSort                100000   STAGGER  avgt    4   0,236 ±  0,002       0,236 ±  0,001  ms/op
+ArraysSort.Char.testSort                100000   SHUFFLE  avgt    4   0,277 ±  0,004       0,275 ±  0,008  ms/op
+ArraysSort.Char.testSort               1000000    RANDOM  avgt    4   2,486 ±  0,251       2,482 ±  0,258  ms/op
+ArraysSort.Char.testSort               1000000  REPEATED  avgt    4   0,845 ±  0,184       0,846 ±  0,189  ms/op
+ArraysSort.Char.testSort               1000000   STAGGER  avgt    4   1,237 ±  0,171       1,240 ±  0,160  ms/op
+ArraysSort.Char.testSort               1000000   SHUFFLE  avgt    4   1,166 ±  0,244       1,163 ±  0,246  ms/op
