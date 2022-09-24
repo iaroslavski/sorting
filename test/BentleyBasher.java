@@ -128,6 +128,7 @@ public class BentleyBasher {
         }
     }
 
+    
     private static double[] times = new double[2];
     private static int[] golden = new int[MAX_N];
     private static int[] result = new int[MAX_N];
