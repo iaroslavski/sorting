@@ -13,12 +13,12 @@ public class Main extends ArraysSort {
 
         @Benchmark
         public void newSort() {
-            DualPivotQuicksort.sort(gold, 0, 0, gold.length);
+            DualPivotQuicksort.sort(b, 0, 0, b.length);
         }
 
         @Benchmark
         public void newParallelSort() {
-            DualPivotQuicksort.sort(gold, PARALLELISM, 0, gold.length);
+            DualPivotQuicksort.sort(b, PARALLELISM, 0, b.length);
         }
     }
 
@@ -26,12 +26,12 @@ public class Main extends ArraysSort {
 
         @Benchmark
         public void newSort() {
-            DualPivotQuicksort.sort(gold, 0, 0, gold.length);
+            DualPivotQuicksort.sort(a, 0, 0, a.length);
         }
 
         @Benchmark
         public void newParallelSort() {
-            DualPivotQuicksort.sort(gold, PARALLELISM, 0, gold.length);
+            DualPivotQuicksort.sort(a, PARALLELISM, 0, a.length);
         }
     }
 
@@ -39,12 +39,12 @@ public class Main extends ArraysSort {
 
         @Benchmark
         public void newSort() {
-            DualPivotQuicksort.sort(gold, 0, gold.length);
+            DualPivotQuicksort.sort(a, 0, a.length);
         }
 
         @Benchmark
         public void newParallelSort() {
-            DualPivotQuicksort.sort(gold, 0, gold.length);
+            DualPivotQuicksort.sort(a, 0, a.length);
         }
     }
 
@@ -52,12 +52,12 @@ public class Main extends ArraysSort {
 
         @Benchmark
         public void newSort() {
-            DualPivotQuicksort.sort(gold, 0, gold.length);
+            DualPivotQuicksort.sort(a, 0, a.length);
         }
-
+  
         @Benchmark
         public void newParallelSort() {
-            DualPivotQuicksort.sort(gold, 0, gold.length);
+            DualPivotQuicksort.sort(a, 0, a.length);
         }
     }
 
@@ -65,12 +65,12 @@ public class Main extends ArraysSort {
 
         @Benchmark
         public void newSort() {
-            DualPivotQuicksort.sort(gold, 0, gold.length);
+            DualPivotQuicksort.sort(a, 0, a.length);
         }
 
         @Benchmark
         public void newParallelSort() {
-            DualPivotQuicksort.sort(gold, 0, gold.length);
+            DualPivotQuicksort.sort(a, 0, a.length);
         }
     }
 
@@ -78,12 +78,12 @@ public class Main extends ArraysSort {
 
         @Benchmark
         public void newSort() {
-            DualPivotQuicksort.sort(gold, 0, 0, gold.length);
+            DualPivotQuicksort.sort(a, 0, 0, a.length);
         }
 
         @Benchmark
         public void newParallelSort() {
-            DualPivotQuicksort.sort(gold, PARALLELISM, 0, gold.length);
+            DualPivotQuicksort.sort(a, PARALLELISM, 0, a.length);
         }
     }
 
@@ -91,12 +91,12 @@ public class Main extends ArraysSort {
 
         @Benchmark
         public void newSort() {
-            DualPivotQuicksort.sort(gold, 0, 0, gold.length);
+            DualPivotQuicksort.sort(a, 0, 0, a.length);
         }
 
         @Benchmark
         public void newParallelSort() {
-            DualPivotQuicksort.sort(gold, PARALLELISM, 0, gold.length);
+            DualPivotQuicksort.sort(a, PARALLELISM, 0, a.length);
         }
     }
 
