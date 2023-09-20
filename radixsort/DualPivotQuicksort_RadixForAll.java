@@ -51,7 +51,7 @@ import jdk.internal.vm.annotation.IntrinsicCandidate;
  *
  * @since 1.7 * 14 ^ 22
  */
-final class DualPivotQuicksort_RadixForParallel {
+final class DualPivotQuicksort_RadixForAll {
 
     /**
      * Prevents instantiation.
@@ -240,7 +240,7 @@ final class DualPivotQuicksort_RadixForParallel {
              * Run adaptive mixed insertion sort on small non-leftmost parts.
              */
             if (size < MAX_MIXED_INSERTION_SORT_SIZE + bits && (bits & 1) > 0) {
-                sort(int.class, a, Unsafe.ARRAY_INT_BASE_OFFSET, low, high, DualPivotQuicksort_RadixForParallel::mixedInsertionSort);
+                sort(int.class, a, Unsafe.ARRAY_INT_BASE_OFFSET, low, high, DualPivotQuicksort_RadixForAll::mixedInsertionSort);
                 return;
             }
 
@@ -248,7 +248,7 @@ final class DualPivotQuicksort_RadixForParallel {
              * Invoke insertion sort on small leftmost part.
              */
             if (size < MAX_INSERTION_SORT_SIZE) {
-                sort(int.class, a, Unsafe.ARRAY_INT_BASE_OFFSET, low, high, DualPivotQuicksort_RadixForParallel::insertionSort);
+                sort(int.class, a, Unsafe.ARRAY_INT_BASE_OFFSET, low, high, DualPivotQuicksort_RadixForAll::insertionSort);
                 return;
             }
 
@@ -286,7 +286,7 @@ final class DualPivotQuicksort_RadixForParallel {
              * data, taking into account parallel context.
              */
             boolean isLargeRandom =
-                bits > 2 && size > MIN_RADIX_SORT_SIZE && sorter != null &&
+                size > MIN_RADIX_SORT_SIZE && (sorter == null || bits > 0) &&
                 (a[e1] > a[e2] || a[e2] > a3 || a3 > a[e4] || a[e4] > a[e5]);
 
             /*
@@ -350,7 +350,7 @@ final class DualPivotQuicksort_RadixForParallel {
              */
             if (a[e1] < a[e2] && a[e2] < a[e3] && a[e3] < a[e4] && a[e4] < a[e5]) {
 
-                int[] pivotIndices = partition(int.class, a, Unsafe.ARRAY_INT_BASE_OFFSET, low, high, e1, e5, DualPivotQuicksort_RadixForParallel::partitionDualPivot);
+                int[] pivotIndices = partition(int.class, a, Unsafe.ARRAY_INT_BASE_OFFSET, low, high, e1, e5, DualPivotQuicksort_RadixForAll::partitionDualPivot);
                 lower = pivotIndices[0];
                 upper = pivotIndices[1];
 
@@ -368,7 +368,7 @@ final class DualPivotQuicksort_RadixForParallel {
 
             } else { // Partitioning with one pivot
 
-                int[] pivotIndices = partition(int.class, a, Unsafe.ARRAY_INT_BASE_OFFSET, low, high, e3, e3, DualPivotQuicksort_RadixForParallel::partitionSinglePivot);
+                int[] pivotIndices = partition(int.class, a, Unsafe.ARRAY_INT_BASE_OFFSET, low, high, e3, e3, DualPivotQuicksort_RadixForAll::partitionSinglePivot);
                 lower = pivotIndices[0];
                 upper = pivotIndices[1];
 
