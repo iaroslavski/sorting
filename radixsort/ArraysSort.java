@@ -134,7 +134,7 @@ public class ArraysSort {
             Arrays.parallelSort(b);
         }
     }
-
+/*
     public static class Long extends ArraysSort {
 
         long[] a;
@@ -308,4 +308,5 @@ public class ArraysSort {
             Arrays.parallelSort(a);
         }
     }
+*/
 }
