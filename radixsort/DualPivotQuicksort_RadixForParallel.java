@@ -286,7 +286,7 @@ final class DualPivotQuicksort_RadixForParallel {
              * data, taking into account parallel context.
              */
             boolean isLargeRandom =
-                bits > 2 && size > MIN_RADIX_SORT_SIZE && sorter != null &&
+                sorter != null && bits > 2 && size > MIN_RADIX_SORT_SIZE &&
                 (a[e1] > a[e2] || a[e2] > a3 || a3 > a[e4] || a[e4] > a[e5]);
 
             /*
