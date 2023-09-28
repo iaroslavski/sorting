@@ -57,7 +57,7 @@ import org.openjdk.jmh.annotations.Warmup;
 @Measurement(iterations = 4, time = 3, timeUnit = TimeUnit.SECONDS)
 public class ArraysSort {
 
-    @Param({ "600", "8000", "50000", "300000", "2000000" })
+    @Param({ "600", "9000", "50000", "300000", "2000000" })
     int size;
 
     @Param
