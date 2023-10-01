@@ -57,7 +57,7 @@ import org.openjdk.jmh.annotations.Warmup;
 @Measurement(iterations = 4, time = 3, timeUnit = TimeUnit.SECONDS)
 public class ArraysSort {
 
-    @Param({ "600", "9000", "50000", "300000", "2000000" })
+    @Param({ "500", "9000", "20000", "600000", "3000000" })
     int size;
 
     @Param
@@ -89,7 +89,7 @@ public class ArraysSort {
                 Random random = new Random(0x777);
 
                 for (int i = 0; i < b.length; ++i) {
-                    b[i] = random.nextInt(4);
+                    b[i] = random.nextInt(5);
                 }
             }
         },
@@ -98,7 +98,7 @@ public class ArraysSort {
             @Override
             void build(int[] b) {
                 for (int i = 0; i < b.length; ++i) {
-                    b[i] = (i * 3) % b.length;
+                    b[i] = (i * 6) % b.length;
                 }
             }
         },
@@ -109,7 +109,7 @@ public class ArraysSort {
                 Random random = new Random(0x777);
 
                 for (int i = 0, j = 0, k = 1; i < b.length; ++i) {
-                    b[i] = random.nextInt(5) > 0 ? (j += 2) : (k += 2);
+                    b[i] = random.nextInt(2) > 0 ? (j += 2) : (k += 2);
                 }
             }
         };
