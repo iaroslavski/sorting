@@ -154,8 +154,8 @@ final class DualPivotQuicksort_RadixForParallel {
      * @param high the index of the last element, exclusive, to be sorted
      * @param so the method reference for the fallback implementation
      */
-    @IntrinsicCandidate
     @ForceInline
+    @IntrinsicCandidate
     private static <A> void sort(Class<?> elemType, A array, long offset, int low, int high, SortOperation<A> so) {
         so.sort(array, low, high);
     }
@@ -193,8 +193,8 @@ final class DualPivotQuicksort_RadixForParallel {
      * @param pivotIndex2 the index of pivot2, the second pivot
      * @param po the method reference for the fallback implementation
      */
-    @IntrinsicCandidate
     @ForceInline
+    @IntrinsicCandidate
     private static <A> int[] partition(Class<?> elemType, A array, long offset, int low, int high, int pivotIndex1, int pivotIndex2, PartitionOperation<A> po) {
         return po.partition(array, low, high, pivotIndex1, pivotIndex2);
     }
@@ -394,7 +394,6 @@ final class DualPivotQuicksort_RadixForParallel {
      * @param pivotIndex2 the index of pivot2, the second pivot
      *
      */
-    @ForceInline
     private static int[] partitionDualPivot(int[] a, int low, int end, int pivotIndex1, int pivotIndex2) { // todo
         int upper = --end;
         int lower = low;
@@ -485,7 +484,6 @@ final class DualPivotQuicksort_RadixForParallel {
      * @param pivotIndex2 the index of pivot2, the second pivot
      *
      */
-    @ForceInline
     private static int[] partitionSinglePivot(int[] a, int low, int end, int pivotIndex1, int pivotIndex2) { // todo
         int upper = end;
         int lower = low;
