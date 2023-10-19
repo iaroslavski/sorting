@@ -75,7 +75,7 @@ public class ArraysSort {
         RANDOM {
             @Override
             void build(int[] b) {
-                Random random = new Random(0x555);
+                Random random = new Random(0x888);
 
                 for (int i = 0; i < b.length; ++i) {
                     b[i] = random.nextInt();
