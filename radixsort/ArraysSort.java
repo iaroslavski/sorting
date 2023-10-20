@@ -49,15 +49,15 @@ import org.openjdk.jmh.annotations.Warmup;
  *
  * @since 22
  */
-@Fork(1)
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @Warmup(iterations = 2, time = 3, timeUnit = TimeUnit.SECONDS)
 @Measurement(iterations = 4, time = 3, timeUnit = TimeUnit.SECONDS)
+@Fork(value=1, jvmArgsAppend={"-XX:CompileThreshold=1", "-XX:-TieredCompilation"})
 public class ArraysSort {
 
-    @Param({ "600", "9000", "80000", "400000", "3000000" })
+    @Param({ "600", "9000", "20000", "400000", "3000000" })
     int size;
 
     @Param
@@ -98,7 +98,7 @@ public class ArraysSort {
             @Override
             void build(int[] b) {
                 for (int i = 0; i < b.length; ++i) {
-                    b[i] = (i * 3) % b.length;
+                    b[i] = (i * 7) % b.length;
                 }
             }
         },
