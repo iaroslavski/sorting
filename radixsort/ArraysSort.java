@@ -109,7 +109,7 @@ public class ArraysSort {
                 Random random = new Random(0x555);
 
                 for (int i = 0, j = 0, k = 1; i < b.length; ++i) {
-                    b[i] = random.nextInt(3) > 0 ? (j += 2) : (k += 2);
+                    b[i] = random.nextInt(8) > 0 ? (j += 2) : (k += 2);
                 }
             }
         };
