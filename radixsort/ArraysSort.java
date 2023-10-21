@@ -86,10 +86,10 @@ public class ArraysSort {
         REPEATED {
             @Override
             void build(int[] b) {
-                Random random = new Random(0x333);
+                Random random = new Random(0x555);
 
                 for (int i = 0; i < b.length; ++i) {
-                    b[i] = random.nextInt(6);
+                    b[i] = random.nextInt(5);
                 }
             }
         },
