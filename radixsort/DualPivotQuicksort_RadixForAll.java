@@ -63,7 +63,7 @@ final class DualPivotQuicksort_RadixForAll {
     /**
      * Max array size to use mixed insertion sort.
      */
-    private static final int MAX_MIXED_INSERTION_SORT_SIZE = 124;
+    private static final int MAX_MIXED_INSERTION_SORT_SIZE = 123;
 
     /**
      * Max array size to use insertion sort.
