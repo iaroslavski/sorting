@@ -129,10 +129,12 @@ public class ArraysSort {
             Arrays.sort(b);
         }
 
-        @Benchmark
-        public void testParallelSort() {
-            Arrays.parallelSort(b);
-        }
+// will check non-parallel case only
+
+//      @Benchmark
+//      public void testParallelSort() {
+//          Arrays.parallelSort(b);
+//      }
     }
 /*
     public static class Long extends ArraysSort {
