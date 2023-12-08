@@ -125,8 +125,28 @@ public class ArraysSort {
         }
 
         @Benchmark
-        public void testSort() {
+        public void jdk() {
             Arrays.sort(b);
+        }
+
+        @Benchmark
+        public void a10() {
+            DualPivotQuicksort_a10.sort(b, 0, 0, b.length);
+        }
+
+        @Benchmark
+        public void r14() {
+            DualPivotQuicksort_r14.sort(b, 0, 0, b.length);
+        }
+
+        @Benchmark
+        public void r17() {
+            DualPivotQuicksort_r17.sort(b, 0, 0, b.length);
+        }
+
+        @Benchmark
+        public void r18() {
+            DualPivotQuicksort_r18.sort(b, 0, 0, b.length);
         }
 
 // will check non-parallel case only
