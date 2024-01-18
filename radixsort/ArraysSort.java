@@ -57,7 +57,9 @@ import org.openjdk.jmh.annotations.Warmup;
 @Fork(value=1, jvmArgsAppend={"-XX:CompileThreshold=1", "-XX:-TieredCompilation"})
 public class ArraysSort {
 
-    @Param({ "600", "9000", "20000", "400000", "3000000" })
+    private static final int PARALLELISM = java.util.concurrent.ForkJoinPool.getCommonPoolParallelism();
+
+    @Param({ "600", "2000", "90000", "400000", "3000000" })
     int size;
 
     @Param
@@ -75,7 +77,7 @@ public class ArraysSort {
         RANDOM {
             @Override
             void build(int[] b) {
-                Random random = new Random(0x888);
+                Random random = new Random(0x777);
 
                 for (int i = 0; i < b.length; ++i) {
                     b[i] = random.nextInt();
@@ -86,10 +88,10 @@ public class ArraysSort {
         REPEATED {
             @Override
             void build(int[] b) {
-                Random random = new Random(0x555);
+                Random random = new Random(0x777);
 
                 for (int i = 0; i < b.length; ++i) {
-                    b[i] = random.nextInt(5);
+                    b[i] = random.nextInt(3);
                 }
             }
         },
@@ -97,8 +99,10 @@ public class ArraysSort {
         STAGGER {
             @Override
             void build(int[] b) {
+                int m = b.length / 2;
+
                 for (int i = 0; i < b.length; ++i) {
-                    b[i] = (i * 7) % b.length;
+                    b[i] = i % m;
                 }
             }
         },
@@ -106,10 +110,10 @@ public class ArraysSort {
         SHUFFLE {
             @Override
             void build(int[] b) {
-                Random random = new Random(0x555);
+                Random random = new Random(0x777);
 
                 for (int i = 0, j = 0, k = 1; i < b.length; ++i) {
-                    b[i] = random.nextInt(8) > 0 ? (j += 2) : (k += 2);
+                    b[i] = random.nextInt(11) > 0 ? (j += 2) : (k += 2);
                 }
             }
         };
@@ -130,32 +134,41 @@ public class ArraysSort {
         }
 
         @Benchmark
-        public void a10() {
-            DualPivotQuicksort_a10.sort(b, 0, 0, b.length);
+        public void a15() {
+            DualPivotQuicksort_a15.sort(b, 0, 0, b.length);
         }
 
         @Benchmark
-        public void r14() {
-            DualPivotQuicksort_r14.sort(b, 0, 0, b.length);
+        public void r20s() {
+            DualPivotQuicksort_r20s.sort(b, 0, 0, b.length);
         }
 
         @Benchmark
-        public void r17() {
-            DualPivotQuicksort_r17.sort(b, 0, 0, b.length);
+        public void r20p() {
+            DualPivotQuicksort_r20p.sort(b, 0, 0, b.length);
         }
 
         @Benchmark
-        public void r18() {
-            DualPivotQuicksort_r18.sort(b, 0, 0, b.length);
+        public void p_jdk() {
+            Arrays.parallelSort(b);
+        }
+  
+        @Benchmark
+        public void p_a15() {
+            DualPivotQuicksort_a15.sort(b, PARALLELISM, 0, b.length);
         }
 
-// will check non-parallel case only
+        @Benchmark
+        public void p_r20s() {
+            DualPivotQuicksort_r20s.sort(b, PARALLELISM, 0, b.length);
+        }
 
-//      @Benchmark
-//      public void testParallelSort() {
-//          Arrays.parallelSort(b);
-//      }
+        @Benchmark
+        public void p_r20p() {
+            DualPivotQuicksort_r20p.sort(b, PARALLELISM, 0, b.length);
+        }
     }
+
 /*
     public static class Long extends ArraysSort {
 
