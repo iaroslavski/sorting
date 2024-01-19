@@ -293,7 +293,7 @@ final class DualPivotQuicksort_r20p {
              * data, taking into account parallel context.
              */
             boolean isLargeRandom =
-                size > MIN_RADIX_SORT_SIZE && sorter != null && bits > 2 &&
+                size > MIN_RADIX_SORT_SIZE && sorter != null && bits > 0 &&
 //              size > MIN_RADIX_SORT_SIZE && (sorter == null || bits > 0) &&
                 (a[e1] > a[e2] || a[e2] > a3 || a3 > a[e4] || a[e4] > a[e5]);
 
