@@ -130,12 +130,12 @@ public class ArraysSortNew {
 
         @Benchmark
         public void sort() {
-            java.util.DualPivotQuicksort(b, 0, 0, b.length);
+            Arrays.sort(b);
         }
 
         @Benchmark
         public void p_sort() {
-            java.util.DualPivotQuicksort.sort(b, PARALLELISM, 0, b.length);
+            Arrays.parallelSort(b);
         }
     }
 }
