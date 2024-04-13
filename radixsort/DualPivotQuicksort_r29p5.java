@@ -789,7 +789,7 @@ final class DualPivotQuicksort_r29p5 {
             } else if ((b = tryAllocate(int[].class, high - low)) == null) {
                 return false;
             }
-            mergeRuns(sorter, a, b, offset, 1, run, 0, count);
+            mergeRuns(sorter, a, b, offset, true, run, 0, count);
         }
         return true;
     }
@@ -801,21 +801,20 @@ final class DualPivotQuicksort_r29p5 {
      * @param a the source array
      * @param b the temporary buffer used in merging
      * @param offset the start index in the source, inclusive
-     * @param aim specifies merging: to source ( > 0), buffer ( < 0) or any ( == 0)
+     * @param aim specifies merging: to source (+1), buffer (-1) or any (0) // todo javadoc
      * @param run the start indexes of the runs, inclusive
      * @param lo the start index of the first run, inclusive
      * @param hi the start index of the last run, inclusive
      * @return the destination where the runs are merged
      */
-    private static int[] mergeRuns(Sorter<int[]> sorter, int[] a, int[] b, int offset,
-            int aim, int[] run, int lo, int hi) {
+    private static void mergeRuns(Sorter<int[]> sorter, int[] a, int[] b, int offset,
+            boolean aim, int[] run, int lo, int hi) {
 
         if (hi - lo == 1) {
-            if (aim >= 0) {
-                return a;
+            if (!aim) {
+                System.arraycopy(a, run[lo], b, run[lo] - offset, run[hi] - run[lo]);
             }
-            System.arraycopy(a, run[lo], b, run[lo] - offset, run[hi] - run[lo]);
-            return b;
+            return;
         }
 
         /*
@@ -827,25 +826,26 @@ final class DualPivotQuicksort_r29p5 {
         /*
          * Merge the runs of all parts.
          */
-        int[] a1 = mergeRuns(sorter, a, b, offset, -aim, run, lo, mi);
-        int[] a2 = mergeRuns(sorter, a, b, offset,    0, run, mi, hi);
-        int[] dst = a1 == a ? b : a;
+        mergeRuns(sorter, a, b, offset, !aim, run, lo, mi);
+        mergeRuns(sorter, a, b, offset, !aim, run, mi, hi);
 
-        int k   = a1 == a ? run[lo] - offset : run[lo];
-        int lo1 = a1 == b ? run[lo] - offset : run[lo];
-        int hi1 = a1 == b ? run[mi] - offset : run[mi];
-        int lo2 = a2 == b ? run[mi] - offset : run[mi];
-        int hi2 = a2 == b ? run[hi] - offset : run[hi];
+        int k   = !aim ? run[lo] - offset : run[lo];
+        int lo1 =  aim ? run[lo] - offset : run[lo];
+        int hi1 =  aim ? run[mi] - offset : run[mi];
+        int lo2 =  aim ? run[mi] - offset : run[mi];
+        int hi2 =  aim ? run[hi] - offset : run[hi];
+
+        int[] dst = aim ? a : b;
+        int[] src = aim ? b : a;
 
         /*
          * Merge the left and right parts.
          */
         if (hi1 - lo1 > MIN_PARALLEL_SORT_SIZE && sorter != null) {
-            new Merger<>(null, dst, k, a1, lo1, hi1, a2, lo2, hi2).invoke();
+            new Merger<>(null, dst, k, src, lo1, hi1, lo2, hi2).invoke();
         } else {
-            mergeParts(null, dst, k, a1, lo1, hi1, a2, lo2, hi2);
+            mergeParts(null, dst, k, src, lo1, hi1, lo2, hi2);
         }
-        return dst;
     }
 
     /**
@@ -862,12 +862,12 @@ final class DualPivotQuicksort_r29p5 {
      * @param hi2 the end index of the second part, exclusive
      */
     private static void mergeParts(Merger<int[]> merger, int[] dst, int k,
-            int[] a1, int lo1, int hi1, int[] a2, int lo2, int hi2) {
+            int[] src, int lo1, int hi1, int lo2, int hi2) {
 
         /*
          * Merge sorted parts in parallel.
          */
-        if (merger != null && a1 == a2) {
+        if (merger != null /*&& a1 == a2*/) {
 
             while (hi1 - lo1 > MIN_MERGE_PART_SIZE && hi2 - lo2 > MIN_MERGE_PART_SIZE) {
 
@@ -883,19 +883,19 @@ final class DualPivotQuicksort_r29p5 {
                  * Find the median of the larger part.
                  */
                 int mi1 = (lo1 + hi1) >>> 1;
-                int key = a1[mi1];
+                int key = src[mi1];
                 int mi2 = hi2;
 
                 /*
                  * Split the smaller part.
                  */
-                for (int mi0 = lo2; mi0 < mi2; ) {
-                    int m = (mi0 + mi2) >>> 1;
+                for (int mid = lo2; mid < mi2; ) {
+                    int d = (mid + mi2) >>> 1;
 
-                    if (key > a2[m]) {
-                        mi0 = m + 1;
+                    if (key > src[d]) {
+                        mid = d + 1;
                     } else {
-                        mi2 = m;
+                        mi2 = d;
                     }
                 }
 
@@ -920,38 +920,38 @@ final class DualPivotQuicksort_r29p5 {
         /*
          * Merge the parts sequentially.
          */
-        if (lo2 < hi2 && a1[hi1 - 1] > a2[lo2]) {
-            if (a1[hi1 - 1] < a2[hi2 - 1]) {
+        if (lo2 < hi2 && src[hi1 - 1] > src[lo2]) {
+            if (src[hi1 - 1] < src[hi2 - 1]) {
                 while (lo1 < hi1) {
-                    int a1lo1 = a1[lo1];
+                    int slo1 = src[lo1];
       
-                    if (a1lo1 <= a2[lo2]) {
-                        dst[k++] = a1[lo1++];
+                    if (slo1 <= src[lo2]) {
+                        dst[k++] = src[lo1++];
                     }
-                    if (a1lo1 >= a2[lo2]) {
-                        dst[k++] = a2[lo2++];
+                    if (slo1 >= src[lo2]) {
+                        dst[k++] = src[lo2++];
                     }
                 }
-            } else if (a1[hi1 - 1] > a2[hi2 - 1]) {
+            } else if (src[hi1 - 1] > src[hi2 - 1]) {
                 while (lo2 < hi2) {
-                    int a1lo1 = a1[lo1];
+                    int slo1 = src[lo1];
       
-                    if (a1lo1 <= a2[lo2]) {
-                        dst[k++] = a1[lo1++];
+                    if (slo1 <= src[lo2]) {
+                        dst[k++] = src[lo1++];
                     }
-                    if (a1lo1 >= a2[lo2]) {
-                        dst[k++] = a2[lo2++];
+                    if (slo1 >= src[lo2]) {
+                        dst[k++] = src[lo2++];
                     }
                 }
             } else {
                 while (lo1 < hi1 && lo2 < hi2) {
-                    int a1lo1 = a1[lo1];
+                    int slo1 = src[lo1];
       
-                    if (a1lo1 <= a2[lo2]) {
-                        dst[k++] = a1[lo1++];
+                    if (slo1 <= src[lo2]) {
+                        dst[k++] = src[lo1++];
                     }
-                    if (a1lo1 >= a2[lo2]) {
-                        dst[k++] = a2[lo2++];
+                    if (slo1 >= src[lo2]) {
+                        dst[k++] = src[lo2++];
                     }
                 }
             }
@@ -961,14 +961,14 @@ final class DualPivotQuicksort_r29p5 {
          * Copy the left tail.
          */
         if (lo1 < hi1) {
-            System.arraycopy(a1, lo1, dst, k, hi1 - lo1);
+            System.arraycopy(src, lo1, dst, k, hi1 - lo1);
         }
 
         /*
          * Copy the right tail.
          */
         if (lo2 < hi2) {
-            System.arraycopy(a2, lo2, dst, k + hi1 - lo1, hi2 - lo2);
+            System.arraycopy(src, lo2, dst, k + hi1 - lo1, hi2 - lo2);
         }
     }
 
@@ -1767,7 +1767,7 @@ final class DualPivotQuicksort_r29p5 {
          * Merge the left and right parts.
          */
         if (hi1 - lo1 > MIN_PARALLEL_SORT_SIZE && parallel) {
-            new Merger<>(null, dst, k, a1, lo1, hi1, a2, lo2, hi2).invoke();
+            new Merger<>(null, dst, k, a1, lo1, hi1, lo2, hi2).invoke();
         } else {
             mergeParts(null, dst, k, a1, lo1, hi1, a2, lo2, hi2);
         }
@@ -3451,7 +3451,7 @@ final class DualPivotQuicksort_r29p5 {
          * Merge the left and right parts.
          */
         if (hi1 - lo1 > MIN_PARALLEL_SORT_SIZE && parallel) {
-            new Merger<>(null, dst, k, a1, lo1, hi1, a2, lo2, hi2).invoke();
+            new Merger<>(null, dst, k, a1, lo1, hi1, lo2, hi2).invoke();
         } else {
             mergeParts(null, dst, k, a1, lo1, hi1, a2, lo2, hi2);
         }
@@ -4387,7 +4387,7 @@ final class DualPivotQuicksort_r29p5 {
          * Merge the left and right parts.
          */
         if (hi1 - lo1 > MIN_PARALLEL_SORT_SIZE && parallel) {
-            new Merger<>(null, dst, k, a1, lo1, hi1, a2, lo2, hi2).invoke();
+            new Merger<>(null, dst, k, a1, lo1, hi1, lo2, hi2).invoke();
         } else {
             mergeParts(null, dst, k, a1, lo1, hi1, a2, lo2, hi2);
         }
@@ -4773,7 +4773,6 @@ final class DualPivotQuicksort_r29p5 {
                     b,
                     src ? low - offset : low,
                     src ? mi - offset : mi,
-                    b,
                     src ? mi - offset : mi,
                     src ? low + size - offset : low + size
                 ).invoke();
@@ -4794,18 +4793,17 @@ final class DualPivotQuicksort_r29p5 {
         private static final long serialVersionUID = 123456789L;
 
         @SuppressWarnings("serial")
-        private final T dst, a1, a2;
+        private final T dst, src;
         private final int k, lo1, hi1, lo2, hi2;
 
         private Merger(CountedCompleter<?> parent, T dst, int k,
-                T a1, int lo1, int hi1, T a2, int lo2, int hi2) {
+                T src, int lo1, int hi1, int lo2, int hi2) {
             super(parent);
             this.dst = dst;
             this.k = k;
-            this.a1 = a1;
+            this.src = src;
             this.lo1 = lo1;
             this.hi1 = hi1;
-            this.a2 = a2;
             this.lo2 = lo2;
             this.hi2 = hi2;
         }
@@ -4814,17 +4812,16 @@ final class DualPivotQuicksort_r29p5 {
         @SuppressWarnings("unchecked")
         public void compute() {
             if (dst instanceof int[]) {
-                mergeParts((Merger<int[]>) this, (int[]) dst, k,
-                    (int[]) a1, lo1, hi1, (int[]) a2, lo2, hi2);
+                mergeParts((Merger<int[]>) this, (int[]) dst, k, (int[]) src, lo1, hi1, lo2, hi2);
             } else if (dst instanceof long[]) {
-                mergeParts((Merger<long[]>) this, (long[]) dst, k,
-                    (long[]) a1, lo1, hi1, (long[]) a2, lo2, hi2);
+//              mergeParts((Merger<long[]>) this, (long[]) dst, k,
+//                  (long[]) a1, lo1, hi1, (long[]) a2, lo2, hi2);
             } else if (dst instanceof float[]) {
-                mergeParts((Merger<float[]>) this, (float[]) dst, k,
-                    (float[]) a1, lo1, hi1, (float[]) a2, lo2, hi2);
+//              mergeParts((Merger<float[]>) this, (float[]) dst, k,
+//                  (float[]) a1, lo1, hi1, (float[]) a2, lo2, hi2);
             } else if (dst instanceof double[]) {
-                mergeParts((Merger<double[]>) this, (double[]) dst, k,
-                    (double[]) a1, lo1, hi1, (double[]) a2, lo2, hi2);
+//              mergeParts((Merger<double[]>) this, (double[]) dst, k,
+//                  (double[]) a1, lo1, hi1, (double[]) a2, lo2, hi2);
             } else {
                 throw new IllegalArgumentException("Unknown array: " + dst.getClass().getName());
             }
@@ -4833,7 +4830,7 @@ final class DualPivotQuicksort_r29p5 {
 
         private void fork(int k, int lo1, int hi1, int lo2, int hi2) {
             addToPendingCount(1);
-            new Merger<>(this, dst, k, a1, lo1, hi1, a2, lo2, hi2).fork();
+            new Merger<>(this, dst, k, src, lo1, hi1, lo2, hi2).fork();
         }
     }
 
