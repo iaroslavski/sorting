@@ -829,11 +829,11 @@ final class DualPivotQuicksort_r29p5 {
         mergeRuns(sorter, a, b, offset, !aim, run, lo, mi);
         mergeRuns(sorter, a, b, offset, !aim, run, mi, hi);
 
-        int k   = !aim ? run[lo] - offset : run[lo];
-        int lo1 =  aim ? run[lo] - offset : run[lo];
-        int hi1 =  aim ? run[mi] - offset : run[mi];
-        int lo2 =  aim ? run[mi] - offset : run[mi];
-        int hi2 =  aim ? run[hi] - offset : run[hi];
+        int k  = !aim ? run[lo] - offset : run[lo];
+        int lo1 = aim ? run[lo] - offset : run[lo];
+        int hi1 = aim ? run[mi] - offset : run[mi];
+        int lo2 = aim ? run[mi] - offset : run[mi];
+        int hi2 = aim ? run[hi] - offset : run[hi];
 
         int[] dst = aim ? a : b;
         int[] src = aim ? b : a;
@@ -874,10 +874,10 @@ final class DualPivotQuicksort_r29p5 {
                 /*
                  * The first part must be larger.
                  */
-                if (hi1 - lo1 < hi2 - lo2) {
-                    int lo = lo1; lo1 = lo2; lo2 = lo;
-                    int hi = hi1; hi1 = hi2; hi2 = hi;
-                }
+//              if (hi1 - lo1 < hi2 - lo2) {
+//                  int lo = lo1; lo1 = lo2; lo2 = lo;
+//                  int hi = hi1; hi1 = hi2; hi2 = hi;
+//              }
 
                 /*
                  * Find the median of the larger part.
@@ -917,14 +917,12 @@ final class DualPivotQuicksort_r29p5 {
             }
         }
 
-        /*
-         * Merge the parts sequentially.
-         */
-        if (lo2 < hi2 && src[hi1 - 1] > src[lo2]) {
+        if (lo1 < hi1 && lo2 < hi2 && src[hi1 - 1] > src[lo2]) {
+
             if (src[hi1 - 1] < src[hi2 - 1]) {
                 while (lo1 < hi1) {
                     int slo1 = src[lo1];
-      
+  
                     if (slo1 <= src[lo2]) {
                         dst[k++] = src[lo1++];
                     }
@@ -935,7 +933,7 @@ final class DualPivotQuicksort_r29p5 {
             } else if (src[hi1 - 1] > src[hi2 - 1]) {
                 while (lo2 < hi2) {
                     int slo1 = src[lo1];
-      
+  
                     if (slo1 <= src[lo2]) {
                         dst[k++] = src[lo1++];
                     }
@@ -946,7 +944,7 @@ final class DualPivotQuicksort_r29p5 {
             } else {
                 while (lo1 < hi1 && lo2 < hi2) {
                     int slo1 = src[lo1];
-      
+
                     if (slo1 <= src[lo2]) {
                         dst[k++] = src[lo1++];
                     }
