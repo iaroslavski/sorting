@@ -874,10 +874,10 @@ final class DualPivotQuicksort_r29p {
                 /*
                  * The first part must be larger.
                  */
-//              if (hi1 - lo1 < hi2 - lo2) {
-//                  int lo = lo1; lo1 = lo2; lo2 = lo;
-//                  int hi = hi1; hi1 = hi2; hi2 = hi;
-//              }
+                if (hi1 - lo1 < hi2 - lo2) {
+                    int lo = lo1; lo1 = lo2; lo2 = lo;
+                    int hi = hi1; hi1 = hi2; hi2 = hi;
+                }
 
                 /*
                  * Find the median of the larger part.
