@@ -14,6 +14,7 @@ public class JavaBenchmarkHarness {
         benchmark("b01     ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_b01       .sort(a, 0, 0, a.length); }});
         benchmark("r30     ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30       .sort(a, 0, 0, a.length); }});
         benchmark("r30_a   ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30_a     .sort(a, 0, 0, a.length); }});
+        benchmark("r30_5   ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30_5     .sort(a, 0, 0, a.length); }});
 
         benchmark("p_b01   ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_b01       .sort(a, PARALLELISM, 0, a.length); }});
         benchmark("p_r30   ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30       .sort(a, PARALLELISM, 0, a.length); }});
