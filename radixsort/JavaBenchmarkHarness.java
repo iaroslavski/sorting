@@ -11,21 +11,20 @@ public class JavaBenchmarkHarness {
     private void main() {
         init();
 
-        benchmark("b01      ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_b01      .sort(a, 0, 0, a.length); }});
-        benchmark("b01_ins  ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_b01_ins  .sort(a, 0, 0, a.length); }});
-        benchmark("b01_mrg  ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_b01_mrg  .sort(a, 0, 0, a.length); }});
-        benchmark("b01_piv  ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_b01_piv  .sort(a, 0, 0, a.length); }});
-        benchmark("b01_prt  ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_b01_prt  .sort(a, 0, 0, a.length); }});
-        benchmark("r29p     ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r29p     .sort(a, 0, 0, a.length); }});
-        benchmark("r29p5    ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r29p5    .sort(a, 0, 0, a.length); }});
+        benchmark("b01     ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_b01       .sort(a, 0, 0, a.length); }});
+        benchmark("r30     ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30       .sort(a, 0, 0, a.length); }});
+        benchmark("r30_a   ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30_a     .sort(a, 0, 0, a.length); }});
 
-        benchmark("p_b01    ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_b01      .sort(a, PARALLELISM, 0, a.length); }});
-        benchmark("p_b01_ins", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_b01_ins  .sort(a, PARALLELISM, 0, a.length); }});
-        benchmark("p_b01_mrg", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_b01_mrg  .sort(a, PARALLELISM, 0, a.length); }});
-        benchmark("p_b01_piv", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_b01_piv  .sort(a, PARALLELISM, 0, a.length); }});
-        benchmark("p_b01_prt", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_b01_prt  .sort(a, PARALLELISM, 0, a.length); }});
-        benchmark("p_r29p   ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r29p     .sort(a, PARALLELISM, 0, a.length); }});
-        benchmark("p_r29p5  ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r29p5    .sort(a, PARALLELISM, 0, a.length); }});
+        benchmark("p_b01   ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_b01       .sort(a, PARALLELISM, 0, a.length); }});
+        benchmark("p_r30   ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30       .sort(a, PARALLELISM, 0, a.length); }});
+        benchmark("p_r30_a ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30_a     .sort(a, PARALLELISM, 0, a.length); }});
+        benchmark("p_r30_11", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30_11    .sort(a, PARALLELISM, 0, a.length); }});
+        benchmark("p_r30_12", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30_12    .sort(a, PARALLELISM, 0, a.length); }});
+        benchmark("p_r30_13", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30_13    .sort(a, PARALLELISM, 0, a.length); }});
+        benchmark("p_r30_14", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30_14    .sort(a, PARALLELISM, 0, a.length); }});
+        benchmark("p_r30_21", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30_21    .sort(a, PARALLELISM, 0, a.length); }});
+        benchmark("p_r30_23", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30_23    .sort(a, PARALLELISM, 0, a.length); }});
+
     }
 
     private static enum Builder {
@@ -34,7 +33,7 @@ public class JavaBenchmarkHarness {
             @Override
             void build(int[] b) {
                 Random random = new Random(0x777);
-  
+
                 for (int i = 0; i < b.length; ++i) {
                     b[i] = random.nextInt();
                 }
@@ -45,9 +44,20 @@ public class JavaBenchmarkHarness {
             @Override
             void build(int[] b) {
                 Random random = new Random(0x111);
-  
+
                 for (int i = 0; i < b.length; ++i) {
                     b[i] = random.nextInt(5);
+                }
+            }
+        },
+
+        SAWTOOTH(6) {
+            @Override
+            void build(int[] b) {
+                int m = b.length / 2;
+
+                for (int i = 0; i < b.length; ++i) {
+                    b[i] = i % m;
                 }
             }
         },
@@ -55,14 +65,12 @@ public class JavaBenchmarkHarness {
         STAGGER(6) {
             @Override
             void build(int[] b) {
-                int m = b.length / 2;
-  
                 for (int i = 0; i < b.length; ++i) {
-                    b[i] = i % m;
+                    b[i] = (i * 8) % b.length;
                 }
             }
         },
-  
+
         SHUFFLE(1) {
             @Override
             void build(int[] b) {
@@ -84,7 +92,7 @@ public class JavaBenchmarkHarness {
     }
 
     private void init() {
-        System.out.println("name          builder     size  mode   count       score\n");
+        System.out.println("name        builder     size  mode   count       score\n");
     }
 
     private void benchmark(String name, Sorter sorter) {
@@ -144,5 +152,5 @@ public class JavaBenchmarkHarness {
         void sort(int[] a);
     }
 
-    private static final int PARALLELISM = java.util.concurrent.ForkJoinPool.getCommonPoolParallelism();
+    private static int PARALLELISM = java.util.concurrent.ForkJoinPool.getCommonPoolParallelism();
 }

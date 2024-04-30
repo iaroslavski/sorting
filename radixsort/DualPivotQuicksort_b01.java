@@ -279,6 +279,8 @@ final class DualPivotQuicksort_b01 {
                 return;
             }
 
+//System.out.println("!!!!!!!! b01 Go to DPQ");
+
             /*
              * Switch to heap sort if execution
              * time is becoming quadratic.
