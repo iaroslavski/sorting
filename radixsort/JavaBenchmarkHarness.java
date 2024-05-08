@@ -11,21 +11,17 @@ public class JavaBenchmarkHarness {
     private void main() {
         init();
 
-        benchmark("b01     ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_b01       .sort(a, 0, 0, a.length); }});
-        benchmark("r30     ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30       .sort(a, 0, 0, a.length); }});
-        benchmark("r30_a   ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30_a     .sort(a, 0, 0, a.length); }});
-        benchmark("r30_5   ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30_5     .sort(a, 0, 0, a.length); }});
+        benchmark("b01      ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_b01       .sort(a, 0, 0, a.length); }});
+        benchmark("r31_11   ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r31_11    .sort(a, 0, 0, a.length); }});
+        benchmark("r31_11a  ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r31_11a   .sort(a, 0, 0, a.length); }});
+        benchmark("r31_12   ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r31_12    .sort(a, 0, 0, a.length); }});
+        benchmark("r31_12a  ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r31_12a   .sort(a, 0, 0, a.length); }});
 
-        benchmark("p_b01   ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_b01       .sort(a, PARALLELISM, 0, a.length); }});
-        benchmark("p_r30   ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30       .sort(a, PARALLELISM, 0, a.length); }});
-        benchmark("p_r30_a ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30_a     .sort(a, PARALLELISM, 0, a.length); }});
-        benchmark("p_r30_11", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30_11    .sort(a, PARALLELISM, 0, a.length); }});
-        benchmark("p_r30_12", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30_12    .sort(a, PARALLELISM, 0, a.length); }});
-        benchmark("p_r30_13", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30_13    .sort(a, PARALLELISM, 0, a.length); }});
-        benchmark("p_r30_14", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30_14    .sort(a, PARALLELISM, 0, a.length); }});
-        benchmark("p_r30_21", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30_21    .sort(a, PARALLELISM, 0, a.length); }});
-        benchmark("p_r30_23", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r30_23    .sort(a, PARALLELISM, 0, a.length); }});
-
+        benchmark("p_b01    ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_b01       .sort(a, PARALLELISM, 0, a.length); }});
+        benchmark("p_r31_11 ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r31_11    .sort(a, PARALLELISM, 0, a.length); }});
+        benchmark("p_r31_11a", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r31_11a   .sort(a, PARALLELISM, 0, a.length); }});
+        benchmark("p_r31_12 ", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r31_12    .sort(a, PARALLELISM, 0, a.length); }});
+        benchmark("p_r31_12a", new Sorter() { public void sort(int[] a) { DualPivotQuicksort_r31_12a   .sort(a, PARALLELISM, 0, a.length); }});
     }
 
     private static enum Builder {
@@ -48,17 +44,6 @@ public class JavaBenchmarkHarness {
 
                 for (int i = 0; i < b.length; ++i) {
                     b[i] = random.nextInt(5);
-                }
-            }
-        },
-
-        SAWTOOTH(6) {
-            @Override
-            void build(int[] b) {
-                int m = b.length / 2;
-
-                for (int i = 0; i < b.length; ++i) {
-                    b[i] = i % m;
                 }
             }
         },
@@ -93,7 +78,7 @@ public class JavaBenchmarkHarness {
     }
 
     private void init() {
-        System.out.println("name        builder     size  mode   count       score\n");
+        System.out.println("name         builder     size  mode   count       score\n");
     }
 
     private void benchmark(String name, Sorter sorter) {
