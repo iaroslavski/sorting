@@ -57,11 +57,11 @@ public class JavaBenchmarkHarness {
                     }
                 }
             },
-      
+
             SHUFFLE(1) {
                 @Override
                 void build(int[] b) {
-                    Random random = new Random(0x777);
+                    Random random = new Random(0x999);
       
                     for (int i = 0, j = 0, k = 1; i < b.length; ++i) {
                         b[i] = random.nextInt(11) > 0 ? (j += 2) : (k += 2);
@@ -165,11 +165,11 @@ public class JavaBenchmarkHarness {
                     }
                 }
             },
-      
+
             SHUFFLE(1) {
                 @Override
                 void build(long[] b) {
-                    Random random = new Random(0x777);
+                    Random random = new Random(0x999);
       
                     for (int i = 0, j = 0, k = 1; i < b.length; ++i) {
                         b[i] = random.nextLong(11) > 0 ? (j += 2) : (k += 2);
@@ -271,11 +271,11 @@ public class JavaBenchmarkHarness {
                     }
                 }
             },
-      
+
             SHUFFLE(1) {
                 @Override
                 void build(byte[] b) {
-                    Random random = new Random(0x777);
+                    Random random = new Random(0x999);
       
                     for (int i = 0, j = 0, k = 1; i < b.length; ++i) {
                         b[i] = (byte) (random.nextInt(11) > 0 ? (j += 2) : (k += 2));
@@ -368,7 +368,7 @@ public class JavaBenchmarkHarness {
                     }
                 }
             },
-  
+
             STAGGER(3) {
                 @Override
                 void build(char[] b) {
@@ -377,11 +377,11 @@ public class JavaBenchmarkHarness {
                     }
                 }
             },
-      
+
             SHUFFLE(1) {
                 @Override
                 void build(char[] b) {
-                    Random random = new Random(0x777);
+                    Random random = new Random(0x999);
       
                     for (int i = 0, j = 0, k = 1; i < b.length; ++i) {
                         b[i] = (char) (random.nextInt(11) > 0 ? (j += 2) : (k += 2));
@@ -472,11 +472,11 @@ public class JavaBenchmarkHarness {
                     }
                 }
             },
-  
+
             SHUFFLE(1) {
                 @Override
                 void build(short[] b) {
-                    Random random = new Random(0x777);
+                    Random random = new Random(0x999);
       
                     for (int i = 0, j = 0, k = 1; i < b.length; ++i) {
                         b[i] = (short) (random.nextInt(11) > 0 ? (j += 2) : (k += 2));
@@ -591,11 +591,11 @@ public class JavaBenchmarkHarness {
                     }
                 }
             },
-      
+
             SHUFFLE(1) {
                 @Override
                 void build(float[] b) {
-                    Random random = new Random(0x777);
+                    Random random = new Random(0x999);
       
                     for (int i = 0, j = 0, k = 1; i < b.length; ++i) {
                         b[i] = random.nextInt(11) > 0 ? (j += 2) : (k += 2);
@@ -699,11 +699,11 @@ public class JavaBenchmarkHarness {
                     }
                 }
             },
-      
+
             SHUFFLE(1) {
                 @Override
                 void build(double[] b) {
-                    Random random = new Random(0x777);
+                    Random random = new Random(0x999);
       
                     for (int i = 0, j = 0, k = 1; i < b.length; ++i) {
                         b[i] = random.nextInt(11) > 0 ? (j += 2) : (k += 2);
